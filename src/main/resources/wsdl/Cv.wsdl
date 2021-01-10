@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<wsdl:definitions name="Cv"
+                  targetNamespace="http://medium.com/services/cv"
+                  xmlns:tns="http://medium.com/services/cv"
+                  xmlns:types="http://medium.com/types/cv"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+    <wsdl:types>
+        <xsd:schema
+                targetNamespace="http://medium.com/types/cv"
+                xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                elementFormDefault="qualified"
+                attributeFormDefault="unqualified"
+                version="1.0">
+
+            <xsd:element name="GeneralInfo">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="name" type="xsd:string"/>
+                        <xsd:element name="dateOfBirth" type="xsd:date"/>
+                        <xsd:element name="email" type="xsd:string"/>
+                        <xsd:element name="phone" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <xsd:simpleType name="academicDegree">
+                <xsd:restriction base="xs:string">
+                    <xsd:enumeration value="BACHELOR"/>
+                    <xsd:enumeration value="MASTER"/>
+                    <xsd:enumeration value="PHD"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:element name="EducationInfo">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="degree" type="soap:academicDegree" />
+                        <xsd:element name="year" type="xsd:int"/>
+                        <xsd:element name="university" type="xsd:string"/>
+                        <xsd:element name="studies" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <xsd:complexType name='EducationList'>
+                <xsd:complexContent mixed='false'>
+                  <xsd:restriction base='soapenc:Array'>
+                    <xsd:attribute wsdl:arrayType='EducationInfo[]' ref='soapenc:arrayType' />
+                  </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:element name="WorkingExperienceInfo">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="companyName" type="xsd:string"/>
+                        <xsd:element name="position" type="xsd:string"/>
+                        <xsd:element name="yearStart" type="xsd:int"/>
+                        <xsd:element name="yearEnd" type="xsd:int"/>
+                        <xsd:element name="description" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <xsd:complexType name='WorkingExperienceList'>
+                <xsd:complexContent mixed='false'>
+                  <xsd:restriction base='soapenc:Array'>
+                    <xsd:attribute wsdl:arrayType='WorkingExperienceInfo[]' ref='soapenc:arrayType' />
+                  </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:element name="SkillInfo">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="skill" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <xsd:complexType name='SkillsList'>
+                <xsd:complexContent mixed='false'>
+                  <xsd:restriction base='soapenc:Array'>
+                    <xsd:attribute wsdl:arrayType='SkillInfo[]' ref='soapenc:arrayType' />
+                  </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+        </xsd:schema>
+    </wsdl:types>
+
+
+    <wsdl:message name="GeneralInfoResponse">
+        <wsdl:part name="outputData" element="types:GeneralInfo" />
+    </wsdl:message>
+
+    <wsdl:message name="EducationResponse">
+        <wsdl:part name="outputData" element="types:EducationList" />
+    </wsdl:message>
+    
+    <wsdl:message name="WorkingExperienceResponse">
+        <wsdl:part name="outputData" element="types:WorkingExperienceList" />
+    </wsdl:message>
+
+    <wsdl:message name="SkillsResponse">
+        <wsdl:part name="outputData" element="types:SkillsList" />
+    </wsdl:message>
+
+    <wsdl:portType name="CvPortType">
+        <wsdl:operation name="GetGeneralInfo">
+            <wsdl:output message="tns:generalInfoResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetEducation">
+            <wsdl:output message="tns:EducationResponse" />
+        </wsdl:operation>
+        <wsdl:operation name="WorkingExperience">
+            <wsdl:output message="tns:WorkingExperienceResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetSkills">
+            <wsdl:output message="tns:SkillsResponse" />
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="CvSoapBinding" type="tns:CvPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="GetGeneralInfo">
+            <soap:operation soapAction="http://medium.com/services/cv/GetGeneralInfo" />
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetEducation">
+            <soap:operation soapAction="http://medium.com/services/cv/GetEducation" />
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="WorkingExperience">
+            <soap:operation soapAction="http://medium.com/services/cv/WorkingExperience" />
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetSkills">
+            <soap:operation soapAction="http://medium.com/services/cv/GetSkills" />
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="CvService">
+        <wsdl:documentation>CV Service</wsdl:documentation>
+        <wsdl:port name="CvPortType" binding="tns:CvSoapBinding">
+            <soap:address location="http://localhost:8082/medium/ws/calculatorDemo" />
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
