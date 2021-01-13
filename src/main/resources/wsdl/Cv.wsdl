@@ -1,115 +1,111 @@
 <?xml version="1.0"?>
-<wsdl:definitions name="Cv"
-                  targetNamespace="http://medium.com/services/cv"
-                  xmlns:tns="http://medium.com/services/cv"
-                  xmlns:types="http://medium.com/types/cv"
-                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions
+                  name = "CV"
+                  targetNamespace="http://medium.com/cv"
+                  xmlns:tns="http://medium.com/cv"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
 
     <wsdl:types>
-        <xsd:schema
-                targetNamespace="http://medium.com/types/cv"
-                xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        <xs:schema
+                targetNamespace="http://medium.com/cv"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                xmlns:tns="http://medium.com/cv"
                 elementFormDefault="qualified"
                 attributeFormDefault="unqualified"
                 version="1.0">
 
-            <xsd:element name="GeneralInfo">
-                <xsd:complexType>
-                    <xsd:sequence>
-                        <xsd:element name="name" type="xsd:string"/>
-                        <xsd:element name="dateOfBirth" type="xsd:date"/>
-                        <xsd:element name="email" type="xsd:string"/>
-                        <xsd:element name="phone" type="xsd:string"/>
-                    </xsd:sequence>
-                </xsd:complexType>
-            </xsd:element>
+            <xs:element name="GeneralInfo">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="name" type="xs:string"/>
+                        <xs:element name="dateOfBirth" type="xs:date"/>
+                        <xs:element name="email" type="xs:string"/>
+                        <xs:element name="phone" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
             
-            <xsd:simpleType name="academicDegree">
-                <xsd:restriction base="xs:string">
-                    <xsd:enumeration value="BACHELOR"/>
-                    <xsd:enumeration value="MASTER"/>
-                    <xsd:enumeration value="PHD"/>
-                </xsd:restriction>
-            </xsd:simpleType>
+            <xs:simpleType name="AcademicDegree">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="BACHELOR"/>
+                    <xs:enumeration value="MASTER"/>
+                    <xs:enumeration value="PHD"/>
+                </xs:restriction>
+            </xs:simpleType>
+            
+            <xs:complexType name="EducationInfo">
+                <xs:sequence>
+                    <xs:element name="degree" type="tns:AcademicDegree" />
+                    <xs:element name="year" type="xs:int"/>
+                    <xs:element name="university" type="xs:string"/>
+                    <xs:element name="studies" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            
+            <xs:element name="EducationList">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="unbounded" name="EducationInfo" nillable="true" type="tns:EducationInfo"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
 
-            <xsd:element name="EducationInfo">
-                <xsd:complexType>
-                    <xsd:sequence>
-                        <xsd:element name="degree" type="soap:academicDegree" />
-                        <xsd:element name="year" type="xsd:int"/>
-                        <xsd:element name="university" type="xsd:string"/>
-                        <xsd:element name="studies" type="xsd:string"/>
-                    </xsd:sequence>
-                </xsd:complexType>
-            </xsd:element>
+            <xs:complexType name="WorkingExperienceInfo">
+                <xs:sequence>
+                    <xs:element name="companyName" type="xs:string"/>
+                    <xs:element name="position" type="xs:string"/>
+                    <xs:element name="yearStart" type="xs:int"/>
+                    <xs:element name="yearEnd" type="xs:int"/>
+                    <xs:element name="description" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
             
-            <xsd:complexType name='EducationList'>
-                <xsd:complexContent mixed='false'>
-                  <xsd:restriction base='soapenc:Array'>
-                    <xsd:attribute wsdl:arrayType='EducationInfo[]' ref='soapenc:arrayType' />
-                  </xsd:restriction>
-                </xsd:complexContent>
-            </xsd:complexType>
+            <xs:element name="WorkingExperinceList">
+                <xs:complexType>
+                        <xs:sequence>
+                            <xs:element minOccurs="0" maxOccurs="unbounded" name="WorkingExperienceInfo" nillable="true" type="tns:WorkingExperienceInfo"/>
+                        </xs:sequence>
+                </xs:complexType>
+            </xs:element>
 
-            <xsd:element name="WorkingExperienceInfo">
-                <xsd:complexType>
-                    <xsd:sequence>
-                        <xsd:element name="companyName" type="xsd:string"/>
-                        <xsd:element name="position" type="xsd:string"/>
-                        <xsd:element name="yearStart" type="xsd:int"/>
-                        <xsd:element name="yearEnd" type="xsd:int"/>
-                        <xsd:element name="description" type="xsd:string"/>
-                    </xsd:sequence>
-                </xsd:complexType>
-            </xsd:element>
+            <xs:complexType name="SkillInfo">
+                <xs:sequence>
+                    <xs:element name="skill" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
             
-            <xsd:complexType name='WorkingExperienceList'>
-                <xsd:complexContent mixed='false'>
-                  <xsd:restriction base='soapenc:Array'>
-                    <xsd:attribute wsdl:arrayType='WorkingExperienceInfo[]' ref='soapenc:arrayType' />
-                  </xsd:restriction>
-                </xsd:complexContent>
-            </xsd:complexType>
-
-            <xsd:element name="SkillInfo">
-                <xsd:complexType>
-                    <xsd:sequence>
-                        <xsd:element name="skill" type="xsd:string"/>
-                    </xsd:sequence>
-                </xsd:complexType>
-            </xsd:element>
-            
-            <xsd:complexType name='SkillsList'>
-                <xsd:complexContent mixed='false'>
-                  <xsd:restriction base='soapenc:Array'>
-                    <xsd:attribute wsdl:arrayType='SkillInfo[]' ref='soapenc:arrayType' />
-                  </xsd:restriction>
-                </xsd:complexContent>
-            </xsd:complexType>
-        </xsd:schema>
+            <xs:element name="SkillsList">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="unbounded" name="SkillInfo" nillable="true" type="tns:SkillInfo"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
     </wsdl:types>
 
 
     <wsdl:message name="GeneralInfoResponse">
-        <wsdl:part name="outputData" element="types:GeneralInfo" />
+        <wsdl:part name="outputData" element="tns:GeneralInfo" />
     </wsdl:message>
 
     <wsdl:message name="EducationResponse">
-        <wsdl:part name="outputData" element="types:EducationList" />
+        <wsdl:part name="outputData" element="tns:EducationList" />
     </wsdl:message>
     
     <wsdl:message name="WorkingExperienceResponse">
-        <wsdl:part name="outputData" element="types:WorkingExperienceList" />
+        <wsdl:part name="outputData" element="tns:WorkingExperienceList" />
     </wsdl:message>
 
     <wsdl:message name="SkillsResponse">
-        <wsdl:part name="outputData" element="types:SkillsList" />
+        <wsdl:part name="outputData" element="tns:SkillsList" />
     </wsdl:message>
 
     <wsdl:portType name="CvPortType">
         <wsdl:operation name="GetGeneralInfo">
-            <wsdl:output message="tns:generalInfoResponse"/>
+            <wsdl:output message="tns:GeneralInfoResponse"/>
         </wsdl:operation>
         <wsdl:operation name="GetEducation">
             <wsdl:output message="tns:EducationResponse" />
