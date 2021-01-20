@@ -1,15 +1,16 @@
 <?xml version="1.0"?>
 <wsdl:definitions
                   name = "CV"
-                  targetNamespace="http://medium.com/cv"
+                  targetNamespace="http://medium.com/types/cv"
                   xmlns:tns="http://medium.com/cv"
+                  xmlns:types="http://medium.com/types/cv"
                   xmlns:xs="http://www.w3.org/2001/XMLSchema"
                   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
                   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
 
     <wsdl:types>
         <xs:schema
-                targetNamespace="http://medium.com/cv"
+                targetNamespace="http://medium.com/types/cv"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 xmlns:tns="http://medium.com/cv"
                 elementFormDefault="qualified"
@@ -20,7 +21,7 @@
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element name="name" type="xs:string"/>
-                        <xs:element name="dateOfBirth" type="xs:date"/>
+                        <xs:element name="dateOfBirth" type="xs:string"/>
                         <xs:element name="email" type="xs:string"/>
                         <xs:element name="phone" type="xs:string"/>
                     </xs:sequence>
@@ -37,7 +38,7 @@
             
             <xs:complexType name="EducationInfo">
                 <xs:sequence>
-                    <xs:element name="degree" type="tns:AcademicDegree" />
+                    <xs:element name="degree" type="types:AcademicDegree" />
                     <xs:element name="year" type="xs:int"/>
                     <xs:element name="university" type="xs:string"/>
                     <xs:element name="studies" type="xs:string"/>
@@ -47,7 +48,7 @@
             <xs:element name="EducationList">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element minOccurs="0" maxOccurs="unbounded" name="EducationInfo" nillable="true" type="tns:EducationInfo"/>
+                        <xs:element minOccurs="0" maxOccurs="unbounded" name="EducationInfo" nillable="true" type="types:EducationInfo"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -65,7 +66,7 @@
             <xs:element name="WorkingExperinceList">
                 <xs:complexType>
                         <xs:sequence>
-                            <xs:element minOccurs="0" maxOccurs="unbounded" name="WorkingExperienceInfo" nillable="true" type="tns:WorkingExperienceInfo"/>
+                            <xs:element minOccurs="0" maxOccurs="unbounded" name="WorkingExperienceInfo" nillable="true" type="types:WorkingExperienceInfo"/>
                         </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -79,7 +80,7 @@
             <xs:element name="SkillsList">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element minOccurs="0" maxOccurs="unbounded" name="SkillInfo" nillable="true" type="tns:SkillInfo"/>
+                        <xs:element minOccurs="0" maxOccurs="unbounded" name="SkillInfo" nillable="true" type="types:SkillInfo"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -88,19 +89,19 @@
 
 
     <wsdl:message name="GeneralInfoResponse">
-        <wsdl:part name="outputData" element="tns:GeneralInfo" />
+        <wsdl:part name="outputData" element="types:GeneralInfo" />
     </wsdl:message>
 
     <wsdl:message name="EducationResponse">
-        <wsdl:part name="outputData" element="tns:EducationList" />
+        <wsdl:part name="outputData" element="types:EducationList" />
     </wsdl:message>
     
     <wsdl:message name="WorkingExperienceResponse">
-        <wsdl:part name="outputData" element="tns:WorkingExperienceList" />
+        <wsdl:part name="outputData" element="types:WorkingExperienceList" />
     </wsdl:message>
 
     <wsdl:message name="SkillsResponse">
-        <wsdl:part name="outputData" element="tns:SkillsList" />
+        <wsdl:part name="outputData" element="types:SkillsList" />
     </wsdl:message>
 
     <wsdl:portType name="CvPortType">
@@ -121,25 +122,25 @@
     <wsdl:binding name="CvSoapBinding" type="tns:CvPortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
         <wsdl:operation name="GetGeneralInfo">
-            <soap:operation soapAction="http://medium.com/services/cv/GetGeneralInfo" />
+            <soap:operation soapAction="http://medium.com/cv/GetGeneralInfo" />
             <wsdl:output>
                 <soap:body use="literal" />
             </wsdl:output>
         </wsdl:operation>
         <wsdl:operation name="GetEducation">
-            <soap:operation soapAction="http://medium.com/services/cv/GetEducation" />
+            <soap:operation soapAction="http://medium.com/cv/GetEducation" />
             <wsdl:output>
                 <soap:body use="literal" />
             </wsdl:output>
         </wsdl:operation>
         <wsdl:operation name="WorkingExperience">
-            <soap:operation soapAction="http://medium.com/services/cv/WorkingExperience" />
+            <soap:operation soapAction="http://medium.com/cv/WorkingExperience" />
             <wsdl:output>
                 <soap:body use="literal" />
             </wsdl:output>
         </wsdl:operation>
         <wsdl:operation name="GetSkills">
-            <soap:operation soapAction="http://medium.com/services/cv/GetSkills" />
+            <soap:operation soapAction="http://medium.com/cv/GetSkills" />
             <wsdl:output>
                 <soap:body use="literal" />
             </wsdl:output>
@@ -149,7 +150,7 @@
     <wsdl:service name="CvService">
         <wsdl:documentation>CV Service</wsdl:documentation>
         <wsdl:port name="CvPortType" binding="tns:CvSoapBinding">
-            <soap:address location="http://localhost:8082/medium/ws/calculatorDemo" />
+            <soap:address location="http://localhost:8082/ws/calculatorDemo" />
         </wsdl:port>
     </wsdl:service>
 </wsdl:definitions>
