@@ -1,7 +1,7 @@
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cv="http://medium.com/types/cv">
     <soapenv:Header/>
     <soapenv:Body>
-        <cv:GeneralInfo>
-        </cv:GeneralInfo>
+        <cv:EducationList>
+        </cv:EducationList>
     </soapenv:Body>
 </soapenv:Envelope>
