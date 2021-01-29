@@ -70,17 +70,11 @@
                         </xs:sequence>
                 </xs:complexType>
             </xs:element>
-
-            <xs:complexType name="SkillInfo">
-                <xs:sequence>
-                    <xs:element name="skill" type="xs:string"/>
-                </xs:sequence>
-            </xs:complexType>
             
             <xs:element name="SkillsList">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element minOccurs="0" maxOccurs="unbounded" name="SkillInfo" nillable="true" type="types:SkillInfo"/>
+                        <xs:element minOccurs="0" maxOccurs="unbounded" name="SkillInfo" nillable="true" type="xs:string"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>

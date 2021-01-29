@@ -1,6 +1,6 @@
 package com.leviosa.pumpkin.my_soap_cv.configuration.endpoint;
 
-import com.medium.cv.*;
+import com.medium.types.cv.*;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -34,7 +34,6 @@ public class Cv {
         logger.info("getEducationInfo");
         ObjectFactory objectFactory = new ObjectFactory();
         EducationList output = objectFactory.createEducationList();
-        List<EducationInfo> education = new ArrayList<>();
         
         EducationInfo bachelor = new EducationInfo();
         bachelor.setDegree(AcademicDegree.BACHELOR);
@@ -52,4 +51,51 @@ public class Cv {
                 
         return output;
     }
+    
+    @ResponsePayload
+    @PayloadRoot(namespace = "http://medium.com/types/cv", localPart = "SkillsList")
+    public SkillsList getSkills(){
+        logger.info("getSkillInfo");
+        ObjectFactory objectFactory = new ObjectFactory();
+        SkillsList output = objectFactory.createSkillsList();
+        
+        output.getSkillInfo().add("Java");
+        output.getSkillInfo().add("Spring boot");
+        output.getSkillInfo().add("JSF");
+        output.getSkillInfo().add("SQL");
+        output.getSkillInfo().add("SOAP");
+        output.getSkillInfo().add("REST");
+        output.getSkillInfo().add("Java Script");
+        output.getSkillInfo().add("English");
+        output.getSkillInfo().add("Agile");
+                
+        return output;
+    }
+    
+    @ResponsePayload
+    @PayloadRoot(namespace = "http://medium.com/types/cv", localPart = "WorkingExperienceList")
+    public WorkingExperinceList getWorkingExperience(){
+        logger.info("getWorkingexperience");
+        ObjectFactory objectFactory = new ObjectFactory();
+        WorkingExperinceList output = objectFactory.createWorkingExperinceList();
+        
+        WorkingExperienceInfo first = new WorkingExperienceInfo();
+        first.setCompanyName("Postupi Online");
+        first.setPosition("Intern");
+        first.setYearStart(2018);
+        first.setYearEnd(2019);
+        first.setDescription("");
+        output.getWorkingExperienceInfo().add(first);
+        
+        WorkingExperienceInfo second = new WorkingExperienceInfo();
+        second.setCompanyName("Murano Software");
+        second.setPosition("Junior Developer");
+        second.setYearStart(2019);
+        second.setYearEnd(2021);
+        second.setDescription("");
+        output.getWorkingExperienceInfo().add(second);
+
+        return output;
+    }
+    
 }
